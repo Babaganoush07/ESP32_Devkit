@@ -46,7 +46,7 @@ String SendHTML(float temperature,float humidity,float heatIndex,float pressure,
   ptr +="<title>ESP32 Weather Station</title>";
   ptr +="<meta name='viewport' content='width=device-width, initial-scale=1.0'>";
   ptr +="<link rel=\"icon\" href=\"data:,\">";
-  ptr +="<meta http-equiv='refresh' content='10'>";
+  ptr +="<meta http-equiv='refresh' content='60'>"; // Refresh page every 60 seconds
   ptr +="<style>";
   ptr +="html { font-family: 'Open Sans', sans-serif; display: block; margin: 0px auto; text-align: center;color: #444444;}";
   ptr +="body{margin: 0px;} ";
