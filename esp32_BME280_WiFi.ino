@@ -38,7 +38,7 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
 }
 
-String SendHTML(float temperature,float humidity,float pressure,float altitude){
+String SendHTML(float temperature,float humidity,float heatIndex,float pressure,float altitude){
   digitalWrite(LED_BUILTIN, HIGH);
   String ptr = "<!DOCTYPE html>";
   ptr +="<html>";
@@ -56,6 +56,7 @@ String SendHTML(float temperature,float humidity,float pressure,float altitude){
   ptr +=".reading{font-weight: 300;font-size: 50px;padding-right: 25px;}";
   ptr +=".temperature .reading{color: #F29C1F;}";
   ptr +=".humidity .reading{color: #3B97D3;}";
+  ptr +=".heatIndex .reading{color: #FF6347;}";
   ptr +=".pressure .reading{color: #26B99A;}";
   ptr +=".altitude .reading{color: #955BA5;}";
   ptr +=".superscript{font-size: 17px;font-weight: 600;position: absolute;top: 10px;}";
@@ -91,6 +92,19 @@ String SendHTML(float temperature,float humidity,float pressure,float altitude){
   ptr +="<div class='side-by-side reading'>";
   ptr +=(int)humidity;
   ptr +="<span class='superscript'>%</span></div>";
+  ptr +="</div>";
+  ptr +="<div class='data heatIndex'>";
+  ptr +="<div class='side-by-side icon'>";
+  ptr +="<svg enable-background='new 0 0 19.438 54.003'height=54.003px id=Layer_1 version=1.1 viewBox='0 0 19.438 54.003'width=19.438px x=0px xml:space=preserve xmlns=http://www.w3.org/2000/svg xmlns:xlink=http://www.w3.org/1999/xlink y=0px><g><path d='M11.976,8.82v-2h4.084V6.063C16.06,2.715,13.345,0,9.996,0H9.313C5.965,0,3.252,2.715,3.252,6.063v30.982";
+  ptr +="C1.261,38.825,0,41.403,0,44.286c0,5.367,4.351,9.718,9.719,9.718c5.368,0,9.719-4.351,9.719-9.718";
+  ptr +="c0-2.943-1.312-5.574-3.378-7.355V18.436h-3.914v-2h3.914v-2.808h-4.084v-2h4.084V8.82H11.976z M15.302,44.833";
+  ptr +="c0,3.083-2.5,5.583-5.583,5.583s-5.583-2.5-5.583-5.583c0-2.279,1.368-4.236,3.326-5.104V24.257C7.462,23.01,8.472,22,9.719,22";
+  ptr +="s2.257,1.01,2.257,2.257V39.73C13.934,40.597,15.302,42.554,15.302,44.833z'fill=#FF6347 /></g></svg>";
+  ptr +="</div>";
+  ptr +="<div class='side-by-side text'>Heat Index</div>";
+  ptr +="<div class='side-by-side reading'>";
+  ptr +=(int)heatIndex;
+  ptr +="<span class='superscript'>&deg;F</span></div>";
   ptr +="</div>";
   ptr +="<div class='data pressure'>";
   ptr +="<div class='side-by-side icon'>";
@@ -131,7 +145,7 @@ String SendHTML(float temperature,float humidity,float pressure,float altitude){
   return ptr;
 }
 
-float heatIndex(float temp, float rh){
+float getHeatIndex(float temp, float rh){
   // From https://www.wpc.ncep.noaa.gov/html/heatindex_equation.shtml
   float hi;
   
@@ -177,11 +191,11 @@ void loop() {
             client.println();
             float temperature = 1.8 * bme.readTemperature() + 32;
             float humidity = bme.readHumidity();
-            //float feelsLike = heatIndex(temperature, humidity);
+            float heatIndex = getHeatIndex(temperature, humidity);
             float pressure = bme.readPressure() / 100.0F;
             float altitude = bme.readAltitude(SEALEVELPRESSURE_HPA) * 3.281;
             
-            client.println(SendHTML(temperature,humidity,pressure,altitude));
+            client.println(SendHTML(temperature,humidity,heatIndex,pressure,altitude));
             
             // The HTTP response ends with another blank line
             client.println();
