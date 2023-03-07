@@ -48,7 +48,7 @@ String SendHTML(float temperature,float humidity,float heatIndex,float pressure,
   ptr +="<link rel=\"icon\" href=\"data:,\">";
   ptr +="<meta http-equiv='refresh' content='60'>"; // Refresh page every 60 seconds
   ptr +="<style>";
-  ptr +="html { font-family: courier; display: block; margin: 0px auto; text-align: center;color: #444444;}";
+  ptr +="html { font-family: 'Open Sans', sans-serif; display: block; margin: 0px auto; text-align: center;color: #444444;}";
   ptr +="body{margin: 0px;} ";
   ptr +="h1 {margin: 50px auto 30px;} ";
   ptr +=".side-by-side{display: table-cell;vertical-align: middle;position: relative;}";
