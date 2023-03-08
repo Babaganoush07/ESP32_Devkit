@@ -41,12 +41,21 @@
 #include <U8g2lib.h>
 #include <SPI.h>
 #include <Wire.h>
+// Constructor
+U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 
 // BME280
 #include <Wire.h>
 #include <SPI.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
+// Constructor
+Adafruit_BME280 bme;
+// Setup
+if (! bme.begin(0x76, &Wire)) {
+      Serial.println("Could not find a valid BME280 sensor, check wiring!");
+      while (1);
+  }
 
 // WiFi
 #include <WiFi.h>
