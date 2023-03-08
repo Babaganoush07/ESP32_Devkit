@@ -33,3 +33,22 @@
 
 
 - Select the board: Tools -> Boards Manager and search `ESP32`. Select the `ESP32 by Espressif Systems`.
+
+# Libraries used:
+```C++
+// OLED Display
+#include <Arduino.h>
+#include <U8g2lib.h>
+#include <SPI.h>
+#include <Wire.h>
+
+// BME280
+#include <Wire.h>
+#include <SPI.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BME280.h>
+
+// WiFi
+#include <WiFi.h>
+#include <DNSServer.h>
+```
