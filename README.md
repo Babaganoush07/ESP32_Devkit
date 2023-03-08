@@ -52,10 +52,12 @@ U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 // Constructor
 Adafruit_BME280 bme;
 // Setup
-if (! bme.begin(0x76, &Wire)) {
+void setup() { 
+  if (! bme.begin(0x76, &Wire)) {
       Serial.println("Could not find a valid BME280 sensor, check wiring!");
       while (1);
   }
+}
 
 // WiFi
 #include <WiFi.h>
