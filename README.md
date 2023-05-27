@@ -59,7 +59,16 @@ void setup() {
   }
 }
 
-// WiFi
+// WiFi Weather Station
 #include <WiFi.h>
 #include <DNSServer.h>
+
+// SD Card NAS
+#include <WiFi.h>
+#include <WiFiClient.h>
+#include <WebServer.h>
+#include <ESPmDNS.h>
+#include <SD.h> 
+#include <SPI.h>
+#include <WiFiAP.h>
 ```
